@@ -13,7 +13,10 @@ export function getCurrentUserFromClientState() {
   return users.find((u) => u.id === memoryUserId) ?? null;
 }
 export function getUserBySession(token?: string) {
+  if (token) {
+    const id = sessions.get(token);
+    return users.find((u) => u.id === id) ?? null;
+  }
   if (!memoryUserId) return null;
-  const id = token ? sessions.get(token) : memoryUserId;
-  return users.find((u) => u.id === id) ?? null;
+  return users.find((u) => u.id === memoryUserId) ?? null;
 }
